@@ -1,7 +1,7 @@
 from django.db.backends.creation import BaseDatabaseCreation, \
     TEST_DATABASE_PREFIX
 import base64
-from django.utils.hashcompat import md5_constructor
+from hashlib import md5 as md5_constructor
 import random
 import sys
 
