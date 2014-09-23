@@ -49,7 +49,7 @@ class DatabaseWrapper(BaseDatabaseWrapper):
     driver_needs_utf8 = None
     unicode_results = False
     datefirst = 7
-
+    Database = Database
     operators = {
         'exact': '= %s',
         'iexact': '= UPPER(%s)',
@@ -76,7 +76,7 @@ class DatabaseWrapper(BaseDatabaseWrapper):
             self.unicode_results = self.settings_dict['OPTIONS'].get('unicode_results', False)
 
         self.features = DatabaseFeatures(None)
-        self.ops = DatabaseOperations()
+        self.ops = DatabaseOperations(self)
         self.client = DatabaseClient(self)
         self.creation = DatabaseCreation(self)
         self.introspection = DatabaseIntrospection(self)
