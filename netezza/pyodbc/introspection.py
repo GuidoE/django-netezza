@@ -29,7 +29,8 @@ class DatabaseIntrospection(BaseDatabaseIntrospection):
         cursor.execute("""
             SELECT distinct objname
             FROM _v_obj_relation
-            WHERE objclass IN (4905,4906,4908,4907,4909,4940,4911,4913,4953);""")
+            WHERE objclass IN (4905,4906,4908,4907,4909,4940,4911,4913,4953)
+            and objtype!='external table';""")
         return [row[0] for row in cursor.fetchall()]
 
 
