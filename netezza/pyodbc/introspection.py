@@ -1,5 +1,7 @@
-from django.db.backends import BaseDatabaseIntrospection
-import pyodbc as Database
+try:
+    from django.db.backends.base.introspection import BaseDatabaseIntrospection
+except ImportError:
+    from django.db.backends import BaseDatabaseIntrospection
 import types
 import datetime
 import decimal

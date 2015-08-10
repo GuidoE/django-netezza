@@ -1,5 +1,8 @@
-from django.db.backends.creation import BaseDatabaseCreation, \
-    TEST_DATABASE_PREFIX
+try:
+    from django.db.backends.base.creation import BaseDatabaseCreation
+except ImportError:
+    from django.db.backends.creation import BaseDatabaseCreation, \
+        TEST_DATABASE_PREFIX
 import base64
 from hashlib import md5 as md5_constructor
 import random

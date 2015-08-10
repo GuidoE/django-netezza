@@ -1,4 +1,7 @@
-from django.db.backends import BaseDatabaseOperations
+try:
+    from django.db.backends.base.operations import BaseDatabaseOperations
+except ImportError:
+    from django.db.backends import BaseDatabaseOperations
 
 class DatabaseOperations(BaseDatabaseOperations):
     def quote_name(self, name):
