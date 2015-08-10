@@ -2,8 +2,6 @@
 Netezza database backend for Django.
 """
 import types
-import sys
-import pyodbc
 
 try:
     import pyodbc as Database
@@ -11,10 +9,16 @@ except ImportError, e:
     from django.core.exceptions import ImproperlyConfigured
     raise ImproperlyConfigured("Error loading pyodbc module: %s" % e)
 
-from django.db.backends import BaseDatabaseWrapper, BaseDatabaseFeatures, BaseDatabaseValidation
-from django.db.backends.signals import connection_created
-from django.conf import settings
 from django import VERSION as DjangoVersion
+
+if float('%s.%s' % DjangoVersion[:2]) == 1.8:
+    from django.db.backends.base.base import BaseDatabaseWrapper
+    from django.db.backends.base.features import BaseDatabaseFeatures
+    from django.db.backends.base.validation import BaseDatabaseValidation
+else:
+    from django.db.backends import BaseDatabaseWrapper, BaseDatabaseFeatures, BaseDatabaseValidation
+from django.db.backends.signals import connection_created
+
 if DjangoVersion[:2] == (1, 2) :
     from django import get_version
     version_str = get_version()
@@ -35,8 +39,6 @@ from netezza.pyodbc.operations import DatabaseOperations
 from netezza.pyodbc.client import DatabaseClient
 from netezza.pyodbc.creation import DatabaseCreation
 from netezza.pyodbc.introspection import DatabaseIntrospection
-import os
-import warnings
 
 DatabaseError = Database.DatabaseError
 IntegrityError = Database.IntegrityError
